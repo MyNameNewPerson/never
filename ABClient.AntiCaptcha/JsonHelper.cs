@@ -94,7 +94,8 @@ public class JsonHelper
 
 	public static int? ExtractInt(dynamic json, string firstLevel, string secondLevel = null, bool silent = false)
 	{
-		if (!int.TryParse(JsonHelper.ExtractStr(json, firstLevel, secondLevel, silent), out var result))
+		int result;
+		if (!int.TryParse(JsonHelper.ExtractStr(json, firstLevel, secondLevel, silent), out result))
 		{
 			string text = firstLevel + ((secondLevel == null) ? string.Empty : ("=>" + secondLevel));
 			if (!silent)

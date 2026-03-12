@@ -5,15 +5,15 @@ namespace ABClient.ExtMap;
 [Serializable]
 public class MapPathNode : IComparable
 {
-	public string[] CellNumbers { get; }
+	public string[] CellNumbers { get; private set; }
 
-	public int[] Costs { get; }
+	public int[] Costs { get; private set; }
 
-	public bool HasTeleport { get; }
+	public bool HasTeleport { get; private set; }
 
-	public int BotLevel { get; }
+	public int BotLevel { get; private set; }
 
-	public int Jumps { get; }
+	public int Jumps { get; private set; }
 
 	public string CellNumber
 	{
