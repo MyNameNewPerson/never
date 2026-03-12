@@ -22,7 +22,7 @@ internal sealed class Class50
 
 		public static CallSite<Func<CallSite, object, bool>> callSite_4;
 
-		public static CallSite<Func<CallSite, Type, object, Class65>> callSite_5;
+		public static CallSite<Func<CallSite, Type, object, CreateTaskResponse>> callSite_5;
 
 		public static CallSite<Action<CallSite, Type, string, object>> callSite_6;
 	}
@@ -116,19 +116,19 @@ internal sealed class Class50
 		dynamic val2 = val == null;
 		if (!(val2 ? true : false) && !((val2 | val.Equals(false)) ? true : false))
 		{
-			Class65 @class = new Class65(val);
-			if (!@class.method_0().Equals(0))
+			CreateTaskResponse @class = new CreateTaskResponse(val);
+			if (!@class.ErrorId.Equals(0))
 			{
-				method_1(@class.method_4());
-				DebugHelper.Out("API error " + @class.method_0() + ": " + @class.method_4());
+				method_1(@class.ErrorDescription);
+				DebugHelper.Out("API error " + @class.ErrorId + ": " + @class.ErrorDescription);
 				return false;
 			}
-			if (!@class.method_6().HasValue)
+			if (!@class.TaskId.HasValue)
 			{
 				DebugHelper.JsonFieldParseError("taskId", val);
 				return false;
 			}
-			method_3(@class.method_6().Value);
+			method_3(@class.TaskId.Value);
 			return true;
 		}
 		DebugHelper.Out("API error");

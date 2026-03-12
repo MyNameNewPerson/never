@@ -15,7 +15,7 @@ internal sealed class FormAutoLogon : Form
 
 	private Button buttonOk;
 
-	private Timer timer_0;
+	private System.Windows.Forms.Timer timer_0;
 
 	private IContainer icontainer_0;
 

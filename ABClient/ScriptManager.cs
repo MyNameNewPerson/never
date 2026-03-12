@@ -670,24 +670,36 @@ public sealed class ScriptManager
 
 	public void AntiCaptchaStart()
 	{
-		new Thread(method_0).Start();
+		Task.Run(async () => await method_0());
 	}
 
-	private void method_0()
+	private async Task method_0()
 	{
 		Class72.string_50 = null;
-		Class50 @class = new Class50();
-		if (!@class.method_6())
+		var imageBytes = Class72.smethod_24();
+		if (imageBytes == null)
 		{
-			DebugHelper.Out("API v2 send failed. " + @class.method_0());
+			DebugHelper.Out("No captcha image found.");
 			return;
 		}
-		if (!@class.method_7(120, 0))
+
+		var clientKey = Class72.class19_0.method_198();
+		if (string.IsNullOrEmpty(clientKey))
+		{
+			DebugHelper.Out("Anti-Captcha API key is missing.");
+			return;
+		}
+
+		var antiCaptchaService = new AntiCaptchaService(clientKey);
+		var result = await antiCaptchaService.SolveCaptchaAsync(imageBytes);
+
+		if (string.IsNullOrEmpty(result))
 		{
 			DebugHelper.Out("Could not solve the captcha.");
 			return;
 		}
-		Class72.string_50 = @class.method_10().Text;
+
+		Class72.string_50 = result;
 		Class72.smethod_25(null);
 		Class72.formMain_0.method_63("Result: " + Class72.string_50);
 	}

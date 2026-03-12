@@ -17,7 +17,7 @@ internal sealed class FormPromptExit : Form
 
 	private CheckBox checkboxSkipPromptExit;
 
-	private Timer timer_0;
+	private System.Windows.Forms.Timer timer_0;
 
 	public FormPromptExit()
 	{

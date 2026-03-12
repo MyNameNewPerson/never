@@ -3,57 +3,57 @@ using System.Runtime.InteropServices;
 internal sealed class Class0
 {
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 13)]
-	private struct Struct0
+	internal struct Struct0
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 16)]
-	private struct Struct1
+	internal struct Struct1
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 2088)]
-	private struct Struct2
+	internal struct Struct2
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 28)]
-	private struct Struct3
+	internal struct Struct3
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 24)]
-	private struct Struct4
+	internal struct Struct4
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 3)]
-	private struct Struct5
+	internal struct Struct5
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 32)]
-	private struct Struct6
+	internal struct Struct6
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 352)]
-	private struct Struct7
+	internal struct Struct7
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 6)]
-	private struct Struct8
+	internal struct Struct8
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 60)]
-	private struct Struct9
+	internal struct Struct9
 	{
 	}
 
 	[StructLayout(LayoutKind.Explicit, Pack = 1, Size = 68)]
-	private struct Struct10
+	internal struct Struct10
 	{
 	}
 
