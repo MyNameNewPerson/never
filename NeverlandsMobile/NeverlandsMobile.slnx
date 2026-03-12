@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Neverlands.Automation/Neverlands.Automation.csproj" />
+  <Project Path="Neverlands.Core/Neverlands.Core.csproj" />
+  <Project Path="Neverlands.Infrastructure/Neverlands.Infrastructure.csproj" />
+  <Project Path="Neverlands.Mobile/Neverlands.Mobile.csproj" />
+  <Project Path="Neverlands.Tests/Neverlands.Tests.csproj" />
+</Solution>
