@@ -51,62 +51,77 @@ dotnet build NeverlandsMobile.sln
 PrompT:
 You are a senior software architect, reverse engineering specialist, and cross-platform mobile developer.
 
-You are working inside a GitHub repository that contains the full source code of a Windows desktop client for the browser game Neverlands.
+You are working inside a GitHub repository containing the full source code of a Windows desktop client for the browser game Neverlands.
 
-The original client was distributed as a compiled executable and later decompiled into C#.
-The repository now contains the recovered source code of the client including automation systems, navigation logic, combat logic, resource gathering automation, networking code, configuration management, UI code, and supporting infrastructure.
+The original application was distributed as a compiled executable and later decompiled into C#.
+The repository therefore contains reconstructed source code that already implements the full functionality of the client.
+
+The repository includes systems such as:
+
+automation engines
+combat logic
+map navigation
+resource gathering automation
+profile management
+XML map parsing
+captcha handling
+network communication
+session management
+UI components
+background timers and schedulers
 
 A new mobile architecture has already been started inside a directory called:
 
 NeverlandsMobile
 
-Your task is to continue development of the mobile client and ensure that the mobile implementation fully supports the functionality of the original desktop client.
+Your task is to continue development of the mobile client until it fully supports the functionality of the original desktop client.
 
-You must work directly inside the existing repository and extend the existing NeverlandsMobile directory.
+You must work directly inside the repository and extend the existing NeverlandsMobile project.
 
-Do not create a new separate project.
+Do NOT create a separate project.
 
 CRITICAL PRINCIPLE
 
-Do NOT invent gameplay logic if it already exists in the repository.
+Do not invent gameplay logic if it already exists in the repository.
 
-The original desktop client already implements most gameplay automation systems.
-Your task is to locate this logic and reuse it.
+The desktop client already contains working implementations of most gameplay systems.
 
-Your work must focus on:
+Your responsibility is to:
 
-• extracting logic from the existing code
-• refactoring it
-• integrating it into the mobile architecture
+locate those implementations
+extract them
+refactor them
+integrate them into the mobile architecture
 
-The goal is full functional parity between the desktop client and the mobile client.
+The goal is full functional parity between the original desktop client and the mobile client.
 
-FULL FUNCTIONAL DISCOVERY (MANDATORY FIRST STEP)
+FUNCTIONAL DISCOVERY PHASE (MANDATORY)
 
-Before implementing new code, perform a full discovery analysis of the repository.
+Before implementing new code you must perform a full discovery analysis of the repository.
 
-The purpose of this step is to automatically detect all features implemented in the original client.
+Automatically scan the entire codebase and detect all gameplay systems implemented in the original client.
 
-Scan the repository and identify all gameplay systems including:
+Examples include:
 
-automation modules
-combat system
+automation systems
+combat engine
 navigation system
 map interaction
 resource gathering automation
-scripted actions
+script automation
 character state management
-profile management
-XML map handling
+profile system
+XML map parsing
 captcha integration
-network communication
+HTTP communication
 session handling
-UI interaction
-timers and schedulers
+background schedulers
+timers
+UI interaction logic
 
-Detect classes and files responsible for these systems.
+Detect classes responsible for these systems.
 
-Examples may include classes similar to:
+Typical examples might include classes similar to:
 
 LezFight
 MapBot
@@ -116,73 +131,108 @@ CombatManager
 ResourceAutomation
 BackgroundTasks
 
-Create a functional map of the entire client.
+Create a full functional map of the client.
 
-Output a structured list showing:
+Produce a structured list:
 
-Feature Name
+Feature
 Source Files
-Primary Classes
+Main Classes
 Dependencies
 
-This discovery phase must produce a complete list of functionality implemented in the original client.
+This discovery map should represent the complete functional architecture of the desktop client.
 
-DESKTOP VS MOBILE COMPARISON
+ARCHITECTURE RECONSTRUCTION
 
-Next, analyze the existing NeverlandsMobile implementation.
+Because the project was originally decompiled, many class names may be unclear.
 
-Determine which features from the desktop client have already been migrated.
+Reconstruct the logical architecture by grouping classes into subsystems such as:
+
+Game communication
+Combat system
+Navigation system
+Automation system
+Map handling
+Configuration
+Profiles
+Services
+UI
+
+Document the architecture before continuing.
+
+DESKTOP VS MOBILE FEATURE COMPARISON
+
+Analyze the existing NeverlandsMobile project.
+
+Determine which features have already been implemented in the mobile version.
 
 Create a comparison table:
 
 Desktop Feature
-Mobile Implementation Status
+Mobile Status
 Missing Components
 
-Only after this comparison should implementation begin.
+Use this comparison to guide the remaining implementation work.
 
-CODE MIGRATION STRATEGY
+MIGRATION STRATEGY
 
-When porting functionality from the desktop client:
+When migrating code from the desktop client:
 
-1. Extract reusable logic from the original code.
-2. Remove Windows Forms dependencies.
-3. Refactor the logic into reusable services.
-4. Integrate the services into the mobile architecture.
+extract reusable logic
+remove Windows Forms dependencies
+refactor the logic into services
+integrate into the mobile architecture
 
-The architecture must be organized into layers:
+Do not rewrite logic that already works.
 
-Core
-Game models, shared interfaces, and state structures.
+Reuse existing algorithms and logic whenever possible.
 
-Infrastructure
-Networking, HTTP communication, cookies, persistence, configuration.
+CLEAN ARCHITECTURE STRUCTURE
 
-Automation
-All gameplay automation logic extracted from the original client.
+The mobile application must follow a layered architecture.
 
-Services
-Application-level orchestration services.
+Core Layer
+Game state models and shared interfaces.
 
-Mobile UI
-The MAUI interface and platform-specific code.
+Infrastructure Layer
+Networking, cookies, HTTP communication, persistence, configuration.
 
-Business logic must never exist in the UI layer.
+Automation Layer
+Gameplay automation logic extracted from the original client.
+
+Services Layer
+Application orchestration services.
+
+Mobile UI Layer
+MAUI interface and platform-specific code.
+
+Business logic must never be placed in the UI layer.
 
 AUTOMATION ENGINE
 
-The mobile application must support all automation capabilities already present in the original client.
+The mobile application must implement all automation capabilities already present in the original client.
 
-These may include:
+These include systems such as:
 
 automated resource gathering
-automated navigation
+automated navigation across the map
 combat automation
-script execution
+scripted gameplay actions
 task scheduling
 character state monitoring
 
-Implement these using modular services such as:
+Important gameplay features may include:
+
+auto woodcutting
+auto mining
+auto combat
+map navigation
+scripted actions
+automation timers
+
+These systems must be implemented using modular services.
+
+Example structure:
 
 AutomationEngine
 CombatService
@@ -191,7 +241,7 @@ ResourceService
 ScriptManager
 BackgroundAutomationManager
 
-Each service must be independent and testable.
+Each service must be independent and reusable.
 
 BACKGROUND EXECUTION
 
@@ -199,58 +249,82 @@ Automation must continue running when:
 
 the application is minimized
 the phone screen is locked
-the user switches to another application
+the user switches applications
 
 Use Android Foreground Services to maintain persistent background execution.
 
-Implement a BackgroundAutomationManager that coordinates all automation tasks.
+Implement a BackgroundAutomationManager responsible for managing automation loops and services.
 
-PERFORMANCE OPTIMIZATION
+PERFORMANCE ARCHITECTURE
 
-The mobile client should be significantly faster than the original desktop client.
+The new mobile client must significantly outperform the original desktop client.
 
-Apply the following optimizations:
+Implement performance improvements such as:
 
-asynchronous networking using HttpClient
-removal of Thread.Sleep loops
+async networking using HttpClient
+removal of blocking loops and Thread.Sleep
 task-based concurrency using async/await
-in-memory caching of game state
-single-load parsing of XML map files
-dictionary-based map lookup
-reduced network requests
-efficient parsing instead of heavy regular expressions
+caching frequently accessed game state in memory
+loading XML map data only once
+dictionary-based map cell lookup
+reducing unnecessary network requests
+using efficient parsing instead of heavy regular expressions
 
-The target is approximately 5–10x performance improvement compared to the legacy client.
+The goal is approximately a 5–10x performance improvement compared to the original client.
+
+NETWORK AND PROTOCOL HANDLING
+
+Ensure compatibility with the original game server communication.
+
+Maintain correct handling of:
+
+cookies
+sessions
+HTTP headers
+character encoding
+
+Game responses must continue to be parsed using Windows-1251 encoding.
+
+XML MAP DATA
+
+The original client contains XML files such as:
+
+abcells.xml
+map.xml
+
+These must be loaded once and stored in memory structures.
+
+Navigation systems should use fast lookup structures such as dictionaries.
 
 VALIDATION AND TESTING
 
-Every migrated system must be verified.
+Every migrated system must be validated.
 
 Implement automated tests for:
 
 combat logic
 navigation algorithms
-automation decision logic
-network parsing
+automation decisions
+network response parsing
 
-Validate behavior against the desktop client logic.
+Behavior must match the logic of the desktop client.
 
-Add logging for automation actions and error diagnostics.
+Add detailed logging for automation execution and error diagnostics.
 
-MOBILE UI DEVELOPMENT
+MOBILE UI DESIGN
 
-Continue building the mobile UI using .NET MAUI.
+Continue building the mobile interface using .NET MAUI.
 
-The interface should include:
+The application should include screens such as:
 
 Dashboard
-Displays character state and automation status.
+Character status and automation state.
 
 Automation Control
-Enables and configures automation modules.
+Enable or disable automation modules.
 
 Map and Navigation
-Displays map information and movement.
+Display map information and movement.
 
 Profiles
 Manage multiple characters.
@@ -261,38 +335,39 @@ Application configuration.
 Logs
 Display automation activity and diagnostics.
 
-The UI must be optimized for small screens and touch interaction.
+The interface must be optimized for touch interaction and small screens.
 
-WORKFLOW REQUIREMENTS
+DEVELOPMENT WORKFLOW
 
 All development must follow a structured Git workflow.
 
 For each feature:
 
-1. Create a new branch.
-2. Implement functionality.
-3. Add or update tests.
-4. Verify the project builds successfully.
-5. Ensure existing features remain functional.
-6. Submit the changes through a Pull Request.
+create a new branch
+implement functionality
+add or update tests
+verify that the project builds successfully
+confirm that existing functionality still works
+submit changes via Pull Request
 
 Each Pull Request must include:
 
-description of migrated functionality
+description of implemented features
 architectural explanation
 confirmation that tests pass
 
 FINAL OBJECTIVE
 
-The final result should be a complete modern mobile client that:
+The final system must be a modern mobile client that:
 
 preserves all functionality of the original desktop client
-reuses the logic already present in the repository
+reuses existing logic from the repository
 runs on Android using .NET MAUI
 supports persistent background automation
 provides a modern mobile interface
-is significantly more maintainable and performant
+offers significantly improved maintainability and performance
 
-Development should continue iteratively until the mobile client reaches full feature parity with the desktop client.
+Development should continue until the mobile implementation reaches full functional parity with the desktop client.
+
 
 
