@@ -4,7 +4,9 @@ using Neverlands.Infrastructure.Services;
 using Neverlands.Automation.Services;
 using Neverlands.Mobile.ViewModels;
 using Neverlands.Mobile.Views;
+
 namespace Neverlands.Mobile;
+
 public static class MauiProgram {
 	public static MauiApp CreateMauiApp() {
 		var builder = MauiApp.CreateBuilder();
@@ -19,8 +21,18 @@ public static class MauiProgram {
         builder.Services.AddSingleton<IAntiCaptchaService, AntiCaptchaService>(sp => new AntiCaptchaService("YOUR_KEY_HERE"));
         builder.Services.AddSingleton<ICombatService, CombatService>();
         builder.Services.AddSingleton<INavigationService, NavigationService>();
+        builder.Services.AddSingleton<ISecureStorageService, SecureStorageService>();
+        builder.Services.AddSingleton<IResourceAutomationService, ResourceAutomationService>();
+
         builder.Services.AddTransient<MainViewModel>();
         builder.Services.AddTransient<MainPage>();
+        builder.Services.AddTransient<MapViewModel>();
+        builder.Services.AddTransient<MapPage>();
+        builder.Services.AddTransient<ProfilesViewModel>();
+        builder.Services.AddTransient<ProfilesPage>();
+        builder.Services.AddTransient<SettingsViewModel>();
+        builder.Services.AddTransient<SettingsPage>();
+
 		return builder.Build();
 	}
 }

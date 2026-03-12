@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Neverlands.Mobile.Views.SettingsPage"
+             Title="Settings">
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Application Settings" FontSize="24" HorizontalOptions="Center" />
+
+        <HorizontalStackLayout Spacing="10">
+            <Label Text="Enable Background Automation" VerticalOptions="Center" />
+            <Switch IsToggled="{Binding IsBackgroundAutomationEnabled}" />
+        </HorizontalStackLayout>
+
+        <Label Text="Anti-Captcha API Key" />
+        <Entry Text="{Binding AntiCaptchaKey}" Placeholder="Enter key here" IsPassword="True" />
+
+        <Button Text="Save Settings" Margin="0,20,0,0" />
+    </VerticalStackLayout>
+</ContentPage>

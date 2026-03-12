@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Neverlands.Core/1.0.0": {
+        "runtime": {
+          "Neverlands.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Neverlands.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

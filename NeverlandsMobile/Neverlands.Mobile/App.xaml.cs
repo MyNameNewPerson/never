@@ -1,7 +1,8 @@
 namespace Neverlands.Mobile;
+
 public partial class App : Application {
-	public App(Views.MainPage mainPage) {
+	public App() {
 		InitializeComponent();
-		MainPage = new NavigationPage(mainPage);
+		MainPage = new AppShell();
 	}
 }

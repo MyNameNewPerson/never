@@ -1,0 +1,16 @@
+/app/NeverlandsMobile/Neverlands.Infrastructure/bin/Debug/net8.0/Neverlands.Infrastructure.deps.json
+/app/NeverlandsMobile/Neverlands.Infrastructure/bin/Debug/net8.0/Neverlands.Infrastructure.dll
+/app/NeverlandsMobile/Neverlands.Infrastructure/bin/Debug/net8.0/Neverlands.Infrastructure.pdb
+/app/NeverlandsMobile/Neverlands.Infrastructure/bin/Debug/net8.0/Neverlands.Core.dll
+/app/NeverlandsMobile/Neverlands.Infrastructure/bin/Debug/net8.0/Neverlands.Core.pdb
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlands.Infrastructure.csproj.AssemblyReference.cache
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlands.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlands.Infrastructure.AssemblyInfoInputs.cache
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlands.Infrastructure.AssemblyInfo.cs
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlands.Infrastructure.csproj.CoreCompileInputs.cache
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlands.Infrastructure.sourcelink.json
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlan.82E86CF7.Up2Date
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlands.Infrastructure.dll
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/refint/Neverlands.Infrastructure.dll
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/Neverlands.Infrastructure.pdb
+/app/NeverlandsMobile/Neverlands.Infrastructure/obj/Debug/net8.0/ref/Neverlands.Infrastructure.dll

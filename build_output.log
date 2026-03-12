@@ -1,0 +1,22 @@
+  Determining projects to restore...
+  Restored /app/NeverlandsMobile/Neverlands.Core/Neverlands.Core.csproj (in 164 ms).
+  Restored /app/NeverlandsMobile/Neverlands.Automation/Neverlands.Automation.csproj (in 444 ms).
+  Restored /app/NeverlandsMobile/Neverlands.Infrastructure/Neverlands.Infrastructure.csproj (in 444 ms).
+  Restored /app/NeverlandsMobile/Neverlands.Tests/Neverlands.Tests.csproj (in 516 ms).
+  Neverlands.Core -> /app/NeverlandsMobile/Neverlands.Core/bin/Debug/net8.0/Neverlands.Core.dll
+  Neverlands.Infrastructure -> /app/NeverlandsMobile/Neverlands.Infrastructure/bin/Debug/net8.0/Neverlands.Infrastructure.dll
+/app/NeverlandsMobile/Neverlands.Automation/Services/NavigationService.cs(83,38): warning CS8602: Dereference of a possibly null reference. [/app/NeverlandsMobile/Neverlands.Automation/Neverlands.Automation.csproj]
+/app/NeverlandsMobile/Neverlands.Automation/Services/NavigationService.cs(85,76): warning CS8602: Dereference of a possibly null reference. [/app/NeverlandsMobile/Neverlands.Automation/Neverlands.Automation.csproj]
+/app/NeverlandsMobile/Neverlands.Automation/Services/NavigationService.cs(88,84): warning CS8602: Dereference of a possibly null reference. [/app/NeverlandsMobile/Neverlands.Automation/Neverlands.Automation.csproj]
+  Neverlands.Automation -> /app/NeverlandsMobile/Neverlands.Automation/bin/Debug/net8.0/Neverlands.Automation.dll
+  Neverlands.Tests -> /app/NeverlandsMobile/Neverlands.Tests/bin/Debug/net8.0/Neverlands.Tests.dll
+
+Build succeeded.
+
+/app/NeverlandsMobile/Neverlands.Automation/Services/NavigationService.cs(83,38): warning CS8602: Dereference of a possibly null reference. [/app/NeverlandsMobile/Neverlands.Automation/Neverlands.Automation.csproj]
+/app/NeverlandsMobile/Neverlands.Automation/Services/NavigationService.cs(85,76): warning CS8602: Dereference of a possibly null reference. [/app/NeverlandsMobile/Neverlands.Automation/Neverlands.Automation.csproj]
+/app/NeverlandsMobile/Neverlands.Automation/Services/NavigationService.cs(88,84): warning CS8602: Dereference of a possibly null reference. [/app/NeverlandsMobile/Neverlands.Automation/Neverlands.Automation.csproj]
+    3 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.00

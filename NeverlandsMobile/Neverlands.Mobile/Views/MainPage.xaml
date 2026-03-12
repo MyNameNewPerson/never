@@ -16,7 +16,9 @@
             <Button Text="Stop" Command="{Binding StopAutomationCommand}" BackgroundColor="Red"/>
         </VerticalStackLayout>
         <HorizontalStackLayout Grid.Row="2" HorizontalOptions="Center" Spacing="20">
-            <Button Text="Map"/><Button Text="Profiles"/><Button Text="Settings"/>
+            <Button Text="Map" Command="{Binding NavigateToMapCommand}" />
+            <Button Text="Profiles" Command="{Binding NavigateToProfilesCommand}" />
+            <Button Text="Settings" Command="{Binding NavigateToSettingsCommand}" />
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>
