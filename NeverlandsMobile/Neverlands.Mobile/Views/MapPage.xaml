@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Neverlands.Mobile.ViewModels"
+             x:Class="Neverlands.Mobile.Views.MapPage"
+             Title="World Map">
+    <VerticalStackLayout Padding="20">
+        <Label Text="Current Location" FontSize="Small"/>
+        <Label Text="{Binding CurrentLocation}" FontSize="Large" FontAttributes="Bold"/>
+
+        <CollectionView ItemsSource="{Binding NearbyCells}" Margin="0,20,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
+                        <Label Text="{Binding RegNum}" FontAttributes="Bold"/>
+                        <Label Text="{Binding Label}" Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -37,11 +37,12 @@ The .NET MAUI application layer.
 - [x] Set up the .NET MAUI project with dependency injection and MVVM.
 - [x] Implemented Android Foreground Service for persistent automation.
 - [x] Implemented unit tests for ported logic.
+- [x] **XML Data Integration**: Fully integrated `abcells.xml` and `map.xml` into `NavigationService` with coordinate mapping and BFS pathfinding.
+- [x] **Secure Storage**: Implemented `SecureStorageService` using MAUI Essentials for character credentials.
+- [x] **UI Completion**: Implemented Map, Profiles, and Settings screens using MVVM and touch-optimized components.
+- [x] **Feature Parity**: Ported resource gathering logic (woodcutting, fishing, mining) into the new `ResourceAutomationService`.
 
 ## Remaining Tasks
-- [ ] **XML Data Integration**: Fully integrate `abcells.xml` and `map.xml` into the `NavigationService`.
-- [ ] **UI Completion**: Implement Map, Profiles, and Settings screens.
-- [ ] **Secure Storage**: Implement credential storage using MAUI Essentials.
 
 ## Compilation Instructions
 ```bash

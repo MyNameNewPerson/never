@@ -12,8 +12,11 @@ public class AutomationTests {
         Assert.True(decision.IsInCombat); Assert.True(decision.IsMyTurn);
     }
     [Fact] public void NavigationService_ValidatesPath() {
-        var service = new NavigationService();
-        var result = service.IsPathExists("0-001", "0-005");
+        var service = new NavigationService(null!);
+        var abCells = @"<cells><cell regnum=""18-226"" label=""Start"" cost=""30""/><cell regnum=""18-227"" label=""End"" cost=""30""/></cells>";
+        var mapXml = @"<map><cell cellNumber=""18-226"" cost=""21""/><cell cellNumber=""18-227"" cost=""21""/></map>";
+        service.LoadMapData(abCells, mapXml);
+        var result = service.IsPathExists("18-226", "18-227");
         Assert.True(result);
     }
 }

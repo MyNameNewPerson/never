@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Neverlands.Mobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Neverlands.Mobile.Views"
+    Shell.FlyoutBehavior="Flyout">
+
+    <FlyoutItem Title="Dashboard" Icon="home.png">
+        <ShellContent ContentTemplate="{DataTemplate views:MainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Map" Icon="map.png">
+        <ShellContent ContentTemplate="{DataTemplate views:MapPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Profiles" Icon="people.png">
+        <ShellContent ContentTemplate="{DataTemplate views:ProfilesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Settings" Icon="settings.png">
+        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" />
+    </FlyoutItem>
+
+</Shell>
