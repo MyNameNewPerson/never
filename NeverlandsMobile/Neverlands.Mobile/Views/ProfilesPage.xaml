@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Neverlands.Mobile.Views.ProfilesPage"
+             Title="Character Profiles">
+    <VerticalStackLayout Padding="20">
+        <CollectionView ItemsSource="{Binding Profiles}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding Nickname}" FontSize="Medium" Padding="10"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="Add Profile" Command="{Binding AddProfileCommand}" Margin="0,20,0,0"/>
+    </VerticalStackLayout>
+</ContentPage>

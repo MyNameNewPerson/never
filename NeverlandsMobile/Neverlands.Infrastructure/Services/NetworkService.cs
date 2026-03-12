@@ -3,6 +3,7 @@ using System.Text;
 namespace Neverlands.Infrastructure.Services;
 public interface INetworkService {
     Task<string?> GetAsync(string url);
+    Task<byte[]?> GetAsync(string url, bool returnBytes);
     Task<string?> PostAsync(string url, string content);
 }
 public class NetworkService : INetworkService {
@@ -18,14 +19,21 @@ public class NetworkService : INetworkService {
         _httpClient = new HttpClient(handler);
         _httpClient.DefaultRequestHeaders.Add("User-Agent", "NeverlandsMobileClient/1.0");
         _httpClient.Timeout = TimeSpan.FromSeconds(15);
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
     }
     public async Task<string?> GetAsync(string url) {
         return await ExecuteWithRetry(async () => {
             var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             var bytes = await response.Content.ReadAsByteArrayAsync();
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             return Encoding.GetEncoding(1251).GetString(bytes);
+        });
+    }
+    public async Task<byte[]?> GetAsync(string url, bool returnBytes) {
+        return await ExecuteWithRetry(async () => {
+            var response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsByteArrayAsync();
         });
     }
     public async Task<string?> PostAsync(string url, string content) {
