@@ -13,4 +13,9 @@ public class GameCell
     public int Y { get; set; }
     public DateTime Visited { get; set; }
     public List<MapBot> Bots { get; set; } = new();
+
+    public bool IsMine { get; set; }
+    public int MineId { get; set; }
+    public int MineLevel { get; set; }
+    public string? TeleportDestination { get; set; }
 }

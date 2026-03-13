@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Neverlands.Core.Interfaces;
 using Neverlands.Core.Models;
 using System.Collections.ObjectModel;
@@ -7,25 +8,31 @@ namespace Neverlands.Mobile.ViewModels;
 
 public partial class ProfilesViewModel : ObservableObject
 {
-    private readonly ISecureStorageService _secureStorage;
+    private readonly IProfileManager _profileManager;
     public ObservableCollection<UserProfile> Profiles { get; } = new();
 
-    public ProfilesViewModel(ISecureStorageService secureStorage)
+    public ProfilesViewModel(IProfileManager profileManager)
     {
-        _secureStorage = secureStorage;
+        _profileManager = profileManager;
         LoadProfiles();
     }
 
-    private void LoadProfiles()
+    private async void LoadProfiles()
     {
-        // For demonstration, we could load from local db or settings.
-        // Assuming a single primary profile for now.
-        Profiles.Add(new UserProfile { Nickname = "Main Character" });
+        await _profileManager.LoadProfilesAsync();
+        Profiles.Clear();
+        foreach (var profile in _profileManager.GetAllProfiles())
+        {
+            Profiles.Add(profile);
+        }
     }
 
     [RelayCommand]
-    private void AddProfile()
+    private async Task AddProfileAsync()
     {
-        Profiles.Add(new UserProfile { Nickname = "New Profile" });
+        var newProfile = new UserProfile { Nickname = "New Profile" };
+        _profileManager.AddProfile(newProfile);
+        await _profileManager.SaveProfilesAsync();
+        Profiles.Add(newProfile);
     }
 }

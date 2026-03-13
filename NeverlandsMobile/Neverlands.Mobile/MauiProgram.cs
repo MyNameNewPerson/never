@@ -18,9 +18,14 @@ public static class MauiProgram {
         builder.Services.AddSingleton<INetworkService, NetworkService>();
         builder.Services.AddSingleton<IAntiCaptchaService, AntiCaptchaService>(sp => new AntiCaptchaService("YOUR_KEY_HERE"));
         builder.Services.AddSingleton<ISecureStorageService, SecureStorageService>();
+        builder.Services.AddSingleton<IProfileManager, ProfileManager>();
         builder.Services.AddSingleton<ICombatService, CombatService>();
         builder.Services.AddSingleton<INavigationService, NavigationService>();
         builder.Services.AddSingleton<IResourceAutomationService, ResourceAutomationService>();
+        builder.Services.AddSingleton<IBackgroundAutomationManager, BackgroundAutomationManager>();
+        builder.Services.AddSingleton<IScriptManager, ScriptManager>();
+        builder.Services.AddSingleton<AutomationEngine>();
+        builder.Services.AddSingleton<AppInitializer>();
         builder.Services.AddTransient<MainViewModel>();
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<MapViewModel>();
