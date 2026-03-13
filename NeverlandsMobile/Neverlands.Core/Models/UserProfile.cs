@@ -8,4 +8,5 @@ public class UserProfile {
     public int HealThresholdMa { get; set; } = 50;
     public bool AutoCure { get; set; }
     public string AntiCaptchaKey { get; set; } = string.Empty;
+    public string LastKnownLocation { get; set; } = "0-000";
 }

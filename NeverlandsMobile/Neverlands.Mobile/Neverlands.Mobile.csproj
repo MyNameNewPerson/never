@@ -23,7 +23,11 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 	<ItemGroup>
+		<MauiAsset Include="Resources\Raw\*.xml" />
+	</ItemGroup>
+	<ItemGroup>
 	  <ProjectReference Include="..\Neverlands.Automation\Neverlands.Automation.csproj" />
 	  <ProjectReference Include="..\Neverlands.Core\Neverlands.Core.csproj" />
+	  <ProjectReference Include="..\Neverlands.Infrastructure\Neverlands.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>

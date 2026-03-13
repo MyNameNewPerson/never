@@ -1,11 +1,9 @@
 using System.Net;
 using System.Text;
+using Neverlands.Core.Interfaces;
+
 namespace Neverlands.Infrastructure.Services;
-public interface INetworkService {
-    Task<string?> GetAsync(string url);
-    Task<byte[]?> GetAsync(string url, bool returnBytes);
-    Task<string?> PostAsync(string url, string content);
-}
+
 public class NetworkService : INetworkService {
     private readonly HttpClient _httpClient;
     private readonly CookieContainer _cookieContainer;
@@ -45,14 +43,14 @@ public class NetworkService : INetworkService {
             return Encoding.GetEncoding(1251).GetString(bytes);
         });
     }
-    private async Task<string?> ExecuteWithRetry(Func<Task<string?>> action, int retries = 3) {
+    private async Task<T?> ExecuteWithRetry<T>(Func<Task<T?>> action, int retries = 3) {
         for (int i = 0; i < retries; i++) {
             try { return await action(); }
             catch (Exception) {
-                if (i == retries - 1) return null;
+                if (i == retries - 1) return default;
                 await Task.Delay(1000 * (i + 1));
             }
         }
-        return null;
+        return default;
     }
 }
