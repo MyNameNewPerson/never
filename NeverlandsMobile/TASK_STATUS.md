@@ -369,6 +369,293 @@ provides a modern mobile interface
 offers significantly improved maintainability and performance
 
 Development should continue until the mobile implementation reaches full functional parity with the desktop client.
+You are a senior software architect, reverse engineering specialist, and cross-platform mobile developer.
+
+You are working inside a GitHub repository that contains a Windows desktop client for the browser game Neverlands and a partially implemented mobile client.
+
+The repository includes a task specification file located at:
+
+NeverlandsMobile/TASK_STATUS.md
+
+This file defines the architecture, implemented systems, and remaining tasks for the mobile migration project.
+
+Your job is to follow this document as the authoritative project specification and continue development of the mobile client until the tasks defined in that file are fully completed.
+
+IMPORTANT RULE
+
+NeverlandsMobile/TASK_STATUS.md is the primary source of truth for the project.
+
+All implementation decisions must follow the structure, architecture, and remaining tasks defined in that document.
+
+Do not deviate from it.
+
+PROJECT CONTEXT
+
+The repository contains two major parts:
+
+A decompiled Windows desktop client written in C# which implements the full functionality of the Neverlands game client.
+
+A modern mobile architecture located in the directory:
+
+NeverlandsMobile
+
+The mobile architecture already includes:
+
+Neverlands.Core Neverlands.Infrastructure Neverlands.Automation Neverlands.Mobile
+
+and follows a Clean Architecture pattern.
+
+Some systems have already been migrated, including:
+
+UserProfile and GameState models NetworkService using HttpClient AntiCaptchaService integration CombatService NavigationService Android Foreground Service for automation initial MAUI UI dashboard
+
+However, the project is not yet complete.
+
+TASK EXECUTION PROCESS
+
+Follow this structured workflow.
+
+STEP 1 — READ PROJECT SPECIFICATION
+
+Open and analyze the file:
+
+NeverlandsMobile/TASK_STATUS.md
+
+Extract the following information:
+
+Project objective Architecture description Implemented modules Completed tasks Remaining tasks
+
+Treat this file as the implementation roadmap.
+
+STEP 2 — VALIDATE CURRENT IMPLEMENTATION
+
+Verify that the codebase matches what is described in the TASK_STATUS.md file.
+
+Confirm the presence and functionality of:
+
+Neverlands.Core models NetworkService AntiCaptchaService CombatService NavigationService Android Foreground Service MAUI UI Dashboard
+
+If any component described as completed in the document is missing or incomplete, fix or complete it.
+
+STEP 3 — IMPLEMENT REMAINING TASKS
+
+Implement the tasks listed under the "Remaining Tasks" section of TASK_STATUS.md.
+
+These include:
+
+XML DATA INTEGRATION
+
+Load the following XML files:
+
+abcells.xml map.xml
+
+Integrate them fully into NavigationService.
+
+NavigationService must use these files to perform map navigation and pathfinding.
+
+Load XML data once and cache it in memory.
+
+Use efficient structures such as dictionaries for fast lookup.
+
+UI COMPLETION
+
+Implement additional MAUI screens:
+
+Map screen Profiles management screen Settings screen
+
+The UI must be optimized for touch devices.
+
+Follow the MVVM pattern used in the project.
+
+SECURE STORAGE
+
+Implement secure storage of user credentials using MAUI Essentials.
+
+Create a service responsible for securely storing:
+
+login password session tokens
+
+STEP 4 — FEATURE PARITY CHECK
+
+After completing the tasks from TASK_STATUS.md, analyze the original desktop client.
+
+Ensure that important gameplay automation features are present in the mobile architecture.
+
+Examples include:
+
+combat automation navigation automation resource gathering automation scripted actions automation timers
+
+If any of these features exist in the desktop client but are missing in the mobile version, migrate them using the architecture defined in the project.
+
+Reuse existing logic rather than rewriting it.
+
+STEP 5 — PERFORMANCE VALIDATION
+
+Ensure the mobile client is optimized.
+
+Verify that the following optimizations are implemented:
+
+async HttpClient networking no Thread.Sleep blocking loops task-based concurrency cached game state single-load XML parsing dictionary-based navigation lookups
+
+STEP 6 — TESTING
+
+Add or update automated tests for critical systems.
+
+This includes:
+
+combat logic navigation algorithms network response parsing automation logic
+
+Ensure all tests pass.
+
+STEP 7 — BUILD VALIDATION
+
+Ensure the project builds successfully using:
+
+dotnet build NeverlandsMobile.sln
+
+Fix any compilation issues that arise.
+
+STEP 8 — PULL REQUEST WORKFLOW
+
+When implementation work is complete:
+
+create a new branch commit all changes ensure tests pass submit a Pull Request
+
+The Pull Request must include:
+
+description of implemented tasks reference to TASK_STATUS.md summary of architectural changes confirmation that tests pass
+
+FINAL GOAL
+
+The goal is to fully complete the mobile migration project described in:
+
+NeverlandsMobile/TASK_STATUS.md
+
+The result should be a functional mobile client for Neverlands that:
+
+follows the defined Clean Architecture implements all tasks described in the project document supports background automation maintains compatibility with the original desktop client builds successfully using the provided solution file
 
 
+The Neverlands mobile migration project was reported as complete, but the Pull Request still cannot be merged because the branch has unresolved merge conflicts with the `main` branch.
+
+GitHub shows:
+
+"Checks awaiting conflict resolution – This branch has conflicts that must be resolved before continuing."
+
+This means the branch is not synchronized with the latest `main` and the migration cannot be finalized until the conflicts are resolved.
+
+You must fix this properly.
+
+### Context
+
+This project migrates the original Neverlands desktop client to a mobile client using:
+
+* C#
+* .NET MAUI
+* Clean Architecture
+
+Project structure:
+
+Neverlands.Core
+Neverlands.Infrastructure
+Neverlands.Automation
+Neverlands.Mobile
+Neverlands.Tests
+
+The goal is **feature parity with the original desktop client** while preserving the new modular architecture.
+
+Do NOT redesign systems or invent new game logic.
+The migration must preserve logic already ported from the desktop client.
+
+### Current Blocking Problem
+
+The Pull Request cannot be merged because of merge conflicts in the following files:
+
+Neverlands.Automation/Services/NavigationService.cs
+Neverlands.Automation/Services/ResourceAutomationService.cs
+Neverlands.Core/Interfaces/IResourceAutomationService.cs
+Neverlands.Core/Interfaces/ISecureStorageService.cs
+Neverlands.Core/Models/GameCell.cs
+Neverlands.Core/Models/MapBot.cs
+Neverlands.Infrastructure/Services/SecureStorageService.cs
+Neverlands.Mobile/App.xaml.cs
+Neverlands.Mobile/AppShell.xaml
+Neverlands.Mobile/AppShell.xaml.cs
+Neverlands.Mobile/MauiProgram.cs
+Neverlands.Mobile/ViewModels/MapViewModel.cs
+Neverlands.Mobile/ViewModels/ProfilesViewModel.cs
+Neverlands.Mobile/ViewModels/SettingsViewModel.cs
+
+These conflicts must be resolved by synchronizing the branch with the latest `main`.
+
+### Required Actions
+
+1. Fetch the latest repository state.
+
+2. Rebase this branch onto the latest `origin/main`.
+
+3. Resolve ALL merge conflicts manually.
+
+While resolving conflicts:
+
+Preserve the implemented mobile migration systems:
+
+* NavigationService with XML loading and pathfinding
+* Dijkstra pathfinding implementation
+* ResourceAutomationService (woodcutting, mining, fishing)
+* SecureStorageService using MAUI SecureStorage
+* GameCell and MapBot models
+* MAUI AppShell navigation
+* MapViewModel, ProfilesViewModel, SettingsViewModel
+* mobile UI pages
+* background automation compatibility
+
+Do NOT remove working logic.
+
+4. Verify the solution builds successfully:
+
+dotnet build NeverlandsMobile.sln
+
+5. Ensure unit tests pass.
+
+6. Push the updated branch so the Pull Request becomes **fully mergeable with zero conflicts**.
+
+### Validation Requirement
+
+Confirm that:
+
+* the PR shows **no merge conflicts**
+* GitHub allows the **Merge Pull Request** action
+* the solution builds successfully
+
+### Documentation Requirement
+
+Update the file:
+
+NeverlandsMobile/TASK_STATUS.md
+
+Add a new section:
+
+## Merge Conflict Resolution
+
+This section must describe:
+
+* why the conflicts occurred
+* which files were affected
+* how the conflicts were resolved
+* confirmation that the branch is now synchronized with `main`
+* confirmation that the PR is now mergeable
+
+### Final Verification
+
+After resolving conflicts and updating the documentation:
+
+Confirm that:
+
+* the PR is mergeable
+* all required systems remain intact
+* the mobile migration remains complete
+* the project builds successfully
+
+Do not mark the project complete again until the Pull Request is fully mergeable.
 
