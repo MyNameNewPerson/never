@@ -15,7 +15,7 @@ public class AutomationTests {
     }
 
     [Fact] public void NavigationService_Initializes() {
-        var service = new NavigationService();
+        var service = new NavigationService(null!);
         Assert.NotNull(service);
     }
 }

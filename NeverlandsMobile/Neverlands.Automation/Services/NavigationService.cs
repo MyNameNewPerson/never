@@ -11,6 +11,7 @@ namespace Neverlands.Automation.Services;
 
 public class NavigationService : INavigationService
 {
+    private readonly INetworkService _networkService;
     private readonly Dictionary<string, GameCell> _cells = new();
     private readonly Dictionary<string, (int X, int Y)> _cellToCoords = new();
     private readonly Dictionary<string, string> _coordsToCell = new();
@@ -18,8 +19,9 @@ public class NavigationService : INavigationService
     private bool _isLoaded = false;
     private List<string> _currentPath = new();
 
-    public NavigationService()
+    public NavigationService(INetworkService networkService)
     {
+        _networkService = networkService;
     }
 
     public async Task InitializeAsync()
@@ -79,13 +81,16 @@ public class NavigationService : INavigationService
                         _cells[regNum] = cell;
                     }
 
-                    if (cellNode.Attribute("label") != null)
-                        cell.Label = cellNode.Attribute("label").Value;
+                    var labelAttr = cellNode.Attribute("label");
+                    if (labelAttr != null)
+                        cell.Label = labelAttr.Value;
 
-                    if (cellNode.Attribute("cost") != null && int.TryParse(cellNode.Attribute("cost").Value, out var cost))
+                    var costAttr = cellNode.Attribute("cost");
+                    if (costAttr != null && int.TryParse(costAttr.Value, out var cost))
                         cell.Cost = cost;
 
-                    if (cellNode.Attribute("visited") != null && DateTime.TryParse(cellNode.Attribute("visited").Value, out var visited))
+                    var visitedAttr = cellNode.Attribute("visited");
+                    if (visitedAttr != null && DateTime.TryParse(visitedAttr.Value, out var visited))
                         cell.Visited = visited;
                 }
             });
@@ -120,9 +125,18 @@ public class NavigationService : INavigationService
 #if !DEBUG || ANDROID || IOS || WINDOWS
         try { stream = await FileSystem.OpenAppPackageFileAsync(fileName); } catch { }
 #endif
-        if (stream == null && File.Exists(fileName))
+        if (stream == null)
         {
-            stream = File.OpenRead(fileName);
+            // Fallback for tests or local execution
+            var paths = new[] { fileName, Path.Combine("Resources", "Raw", fileName), Path.Combine("..", "Neverlands.Mobile", "Resources", "Raw", fileName) };
+            foreach (var path in paths)
+            {
+                if (File.Exists(path))
+                {
+                    stream = File.OpenRead(path);
+                    break;
+                }
+            }
         }
 
         if (stream != null)
@@ -169,9 +183,27 @@ public class NavigationService : INavigationService
     {
         if (!_isLoaded) await InitializeAsync();
         if (string.IsNullOrEmpty(destinationId)) return;
+
+        // In a real scenario, we calculate the path from current location
+        // For now, use the cached path if it exists and ends at destinationId
+        if (_currentPath.Count == 0 || _currentPath.Last() != destinationId)
+        {
+            // Fallback pathfinding from current location (not implemented here, assuming current path is set by IsPathExists)
+            return;
+        }
+
         foreach (var step in _currentPath)
         {
-            await Task.Delay(300);
+            if (!_cells.TryGetValue(step, out var cell)) continue;
+
+            // Send movement request to server
+            // Original format: main.php?get_id=2&go=PREFIX-NUM&vcode=VCODE
+            // Mobile client should handle session/vcode internally in NetworkService or similar
+            string moveUrl = $"http://www.neverlands.ru/main.php?get_id=2&go={step}";
+            await _networkService.GetAsync(moveUrl);
+
+            // Wait for movement cost
+            await Task.Delay(cell.Cost * 1000);
         }
     }
 

@@ -1,10 +1,10 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
+using Neverlands.Core.Interfaces;
+
 namespace Neverlands.Infrastructure.Services;
-public interface IAntiCaptchaService {
-    Task<string?> SolveCaptchaAsync(byte[] imageBytes);
-}
+
 public class AntiCaptchaService : IAntiCaptchaService {
     private readonly HttpClient _httpClient;
     private readonly string _clientKey;

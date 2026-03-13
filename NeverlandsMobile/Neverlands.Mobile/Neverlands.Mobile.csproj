@@ -26,4 +26,7 @@
 	  <ProjectReference Include="..\Neverlands.Automation\Neverlands.Automation.csproj" />
 	  <ProjectReference Include="..\Neverlands.Core\Neverlands.Core.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+		<MauiAsset Include="Resources\Raw\**" />
+	</ItemGroup>
 </Project>

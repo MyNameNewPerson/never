@@ -1,10 +1,9 @@
 using System.Net;
 using System.Text;
+using Neverlands.Core.Interfaces;
+
 namespace Neverlands.Infrastructure.Services;
-public interface INetworkService {
-    Task<string?> GetAsync(string url);
-    Task<string?> PostAsync(string url, string content);
-}
+
 public class NetworkService : INetworkService {
     private readonly HttpClient _httpClient;
     private readonly CookieContainer _cookieContainer;
