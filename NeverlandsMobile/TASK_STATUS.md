@@ -57,11 +57,11 @@ The .NET MAUI application layer.
 | Desktop Feature       | Mobile Status | Missing Components          |
 | --------------------- | ------------- | --------------------------- |
 | Combat automation     | Implemented   | Weights fine-tuning         |
-| Navigation            | Implemented   | Complete XML data support   |
+| Navigation            | Implemented   | Full coordinates validation |
 | Resource automation   | Implemented   | Advanced gathering patterns |
 | Scripts               | Implemented   | ScriptManager Service       |
 | Background scheduling | Implemented   | BackgroundAutomationManager |
-| Profile Management    | Implemented   | Multi-profile support       |
+| Profile Management    | Implemented   | ProfileManager Service      |
 
 ---
 
@@ -71,7 +71,7 @@ The .NET MAUI application layer.
 Implemented `NetworkService` with generic retry logic and `SecureStorageService` with persistent storage. Centralized `GameConstants`.
 
 ### Multi-Profile Management
-Implemented `ProfileManager` and `IProfileManager` to allow adding, switching, and persistent storage of multiple character profiles. Updated `ProfilesViewModel` to use the new manager.
+Implemented `ProfileManager` and `IProfileManager` to allow adding, switching, and persistent storage of multiple character profiles. Updated `ProfilesViewModel` and `MainViewModel` to use the new manager.
 
 ### Advanced Combat Automation
 Implemented `CombatService` with support for:
@@ -92,8 +92,8 @@ Implemented `AutomationEngine` and `BackgroundAutomationManager` to coordinate:
 - Resource gathering loops (Woodcutting, Fishing, Mining) with internal execution steps.
 - Character-specific script execution via `ScriptManager`.
 
-### Application Initialization
-Implemented `AppInitializer` to perform single-load of all XML resources at application startup.
+### Application Initialization & UI Integration
+Implemented `AppInitializer` to perform single-load of all XML resources at application startup. Connected the `AutomationEngine` to the `MainViewModel` and `ProfilesViewModel` for full end-to-end functionality.
 
 ---
 
