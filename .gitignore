@@ -1,0 +1,9 @@
+[Bb]in/
+[Oo]bj/
+*.user
+*.userosscache
+*.sln.docstates
+.DS_Store
+.vs/
+build_output.log
+test_output.log
