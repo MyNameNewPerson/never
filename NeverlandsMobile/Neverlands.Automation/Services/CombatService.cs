@@ -68,7 +68,7 @@ public class CombatService : ICombatService
             var magicStr = new StringBuilder();
 
             // HP Restoration with Cooldown Check
-            if (currentHpPct < 50)
+            if (currentHpPct < 50 && magicIn != null)
             {
                 foreach (var s in magicIn) {
                     if (int.TryParse(Clean(s), out var code) && CombatSpellConstants.RestoreHp.Contains(code)) {
@@ -82,7 +82,7 @@ public class CombatService : ICombatService
             }
 
             // Mana Restoration with Cooldown Check
-            if (currentMaPct < 30 && magicStr.Length == 0)
+            if (currentMaPct < 30 && magicStr.Length == 0 && magicIn != null)
             {
                  foreach (var s in magicIn) {
                     if (int.TryParse(Clean(s), out var code) && CombatSpellConstants.RestoreMa.Contains(code)) {
