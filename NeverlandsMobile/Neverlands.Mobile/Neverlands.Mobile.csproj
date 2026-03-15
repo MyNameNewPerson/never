@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net8.0-android</TargetFrameworks>
 		<ApplicationTitle>Neverlands Mobile</ApplicationTitle>
 		<ApplicationId>com.neverlands.mobile</ApplicationId>
 		<ApplicationIdGuid>711e74f1-6101-4965-a89c-50a312d1b54a</ApplicationIdGuid>
@@ -20,12 +19,16 @@
 		<!-- Android specific -->
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
 		<AndroidSdkBuildToolsVersion>34.0.0</AndroidSdkBuildToolsVersion>
+		<NoWarn>$(NoWarn);NETSDK1202</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.*" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.*" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<MauiIcon Include="Resources\AppIcon\appicon.ico" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiAsset Include="Resources\Raw\*.xml" />

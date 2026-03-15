@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using Neverlands.Core.Interfaces;
 
 namespace Neverlands.Mobile.ViewModels;
 
