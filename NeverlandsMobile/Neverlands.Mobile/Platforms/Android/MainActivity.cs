@@ -1,3 +1,4 @@
+#if ANDROID
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -8,3 +9,4 @@ namespace Neverlands.Mobile;
 public class MainActivity : MauiAppCompatActivity
 {
 }
+#endif
