@@ -6,9 +6,17 @@ public class AppInitializer
 {
     private readonly INavigationService _navigationService;
 
-    public AppInitializer(INavigationService navigationService)
+    private readonly IProfileManager _profileManager;
+
+    public AppInitializer(INavigationService navigationService, IProfileManager profileManager)
     {
         _navigationService = navigationService;
+        _profileManager = profileManager;
+    }
+
+    public bool HasAutoLoginProfile()
+    {
+        return _profileManager.GetAllProfiles().Any(p => p.AutoLogon);
     }
 
     public async Task InitializeAsync()

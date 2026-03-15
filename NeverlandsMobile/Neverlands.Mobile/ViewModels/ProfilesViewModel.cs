@@ -20,6 +20,11 @@ public partial class ProfilesViewModel : ObservableObject
     private async void LoadProfiles()
     {
         await _profileManager.LoadProfilesAsync();
+        RefreshProfiles();
+    }
+
+    private void RefreshProfiles()
+    {
         Profiles.Clear();
         foreach (var profile in _profileManager.GetAllProfiles())
         {
@@ -30,9 +35,36 @@ public partial class ProfilesViewModel : ObservableObject
     [RelayCommand]
     private async Task AddProfileAsync()
     {
-        var newProfile = new UserProfile { Nickname = "New Profile" };
-        _profileManager.AddProfile(newProfile);
+        await Shell.Current.GoToAsync("//LoginPage");
+    }
+
+    [RelayCommand]
+    private async Task ActivateProfileAsync(UserProfile profile)
+    {
+        foreach (var p in _profileManager.GetAllProfiles())
+        {
+            p.AutoLogon = (p.Nickname == profile.Nickname);
+        }
         await _profileManager.SaveProfilesAsync();
-        Profiles.Add(newProfile);
+        RefreshProfiles();
+    }
+
+    [RelayCommand]
+    private async Task LoginWithProfileAsync(UserProfile profile)
+    {
+        _profileManager.SwitchProfile(profile.Nickname);
+        await Shell.Current.GoToAsync("///MainPage");
+    }
+
+    [RelayCommand]
+    private async Task DeleteProfileAsync(UserProfile profile)
+    {
+        bool answer = await Shell.Current.DisplayAlert("Удаление", $"Вы уверены, что хотите удалить профиль {profile.Nickname}?", "Да", "Нет");
+        if (answer)
+        {
+            _profileManager.DeleteProfile(profile.Nickname);
+            await _profileManager.SaveProfilesAsync();
+            RefreshProfiles();
+        }
     }
 }

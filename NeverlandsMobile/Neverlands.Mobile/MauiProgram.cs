@@ -26,12 +26,18 @@ public static class MauiProgram {
         builder.Services.AddSingleton<IScriptManager, ScriptManager>();
         builder.Services.AddSingleton<AutomationEngine>();
         builder.Services.AddSingleton<AppInitializer>();
+        builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<MainViewModel>();
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<MapViewModel>();
         builder.Services.AddTransient<MapPage>();
         builder.Services.AddTransient<ProfilesViewModel>();
         builder.Services.AddTransient<ProfilesPage>();
+        builder.Services.AddTransient<CharacterViewModel>();
+        builder.Services.AddTransient<CharacterPage>();
+        builder.Services.AddTransient<AutomationViewModel>();
+        builder.Services.AddTransient<AutomationPage>();
         builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<SettingsPage>();
 		return builder.Build();

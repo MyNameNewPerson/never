@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Neverlands.Mobile.ViewModels"
+             x:Class="Neverlands.Mobile.Views.LoginPage"
+             x:DataType="vm:LoginViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="32" Spacing="16">
+            <Label Text="Neverlands" FontSize="32" HorizontalOptions="Center" />
+
+            <Picker ItemsSource="{Binding Profiles}"
+                    SelectedItem="{Binding SelectedProfile}"
+                    Title="Выберите профиль"
+                    ItemDisplayBinding="{Binding Nickname}"/>
+
+            <Entry Text="{Binding Login}" Placeholder="Логин" />
+            <Entry Text="{Binding Password}" IsPassword="True" Placeholder="Пароль" />
+
+            <HorizontalStackLayout Spacing="10">
+                <CheckBox IsChecked="{Binding RememberPassword}" />
+                <Label Text="Запомнить пароль" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="10">
+                <CheckBox IsChecked="{Binding AutoLogin}" />
+                <Label Text="Автовход" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
+
+            <Button Text="Войти" Command="{Binding LoginCommand}" />
+
+            <Label Text="{Binding ErrorMessage}" TextColor="Red" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

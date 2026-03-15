@@ -6,20 +6,34 @@
     xmlns:views="clr-namespace:Neverlands.Mobile.Views"
     Shell.FlyoutBehavior="Flyout">
 
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage"
+        FlyoutItemIsVisible="False" />
+
     <FlyoutItem Title="Dashboard" Icon="home.png">
-        <ShellContent ContentTemplate="{DataTemplate views:MainPage}" />
+        <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="MainPage" />
     </FlyoutItem>
 
     <FlyoutItem Title="Map" Icon="map.png">
-        <ShellContent ContentTemplate="{DataTemplate views:MapPage}" />
+        <ShellContent ContentTemplate="{DataTemplate views:MapPage}" Route="MapPage" />
     </FlyoutItem>
 
     <FlyoutItem Title="Profiles" Icon="people.png">
-        <ShellContent ContentTemplate="{DataTemplate views:ProfilesPage}" />
+        <ShellContent ContentTemplate="{DataTemplate views:ProfilesPage}" Route="ProfilesPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Character" Icon="people.png">
+        <ShellContent ContentTemplate="{DataTemplate views:CharacterPage}" Route="CharacterPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Automation" Icon="settings.png">
+        <ShellContent ContentTemplate="{DataTemplate views:AutomationPage}" Route="AutomationPage" />
     </FlyoutItem>
 
     <FlyoutItem Title="Settings" Icon="settings.png">
-        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" />
+        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
     </FlyoutItem>
 
 </Shell>
