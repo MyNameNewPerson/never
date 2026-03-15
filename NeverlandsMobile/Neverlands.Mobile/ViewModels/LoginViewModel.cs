@@ -49,15 +49,22 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand]
     private async Task LoginAsync()
     {
+        if (string.IsNullOrWhiteSpace(Login))
+        {
+            ErrorMessage = "Введите логин";
+            return;
+        }
+
         IsLoading = true;
         ErrorMessage = string.Empty;
 
         try
         {
-            // For Phase 1, we use a stub transition
-            await Task.Delay(1000);
+            await Task.Delay(500); // Simulate network check
 
-            var profile = SelectedProfile ?? new UserProfile { Nickname = Login };
+            var profile = _profileManager.GetAllProfiles().FirstOrDefault(p => p.Nickname == Login)
+                          ?? new UserProfile { Nickname = Login };
+
             profile.Password = RememberPassword ? Password : string.Empty;
             profile.AutoLogon = AutoLogin;
 
