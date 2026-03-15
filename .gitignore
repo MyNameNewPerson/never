@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.doccache
+*.suo
+.vs/
+test_results.txt
+test_output.log
+wood_matches.txt
