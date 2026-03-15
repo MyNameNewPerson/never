@@ -33,9 +33,29 @@ public class ProfileManager : IProfileManager
 
     public void AddProfile(UserProfile profile)
     {
-        if (!_profiles.Any(p => p.Nickname == profile.Nickname))
+        var existing = _profiles.FirstOrDefault(p => p.Nickname == profile.Nickname);
+        if (existing != null)
+        {
+            existing.Password = profile.Password;
+            existing.AutoLogon = profile.AutoLogon;
+            existing.FlashToken = profile.FlashToken;
+        }
+        else
         {
             _profiles.Add(profile);
+        }
+    }
+
+    public void DeleteProfile(string nickname)
+    {
+        var profile = _profiles.FirstOrDefault(p => p.Nickname == nickname);
+        if (profile != null)
+        {
+            _profiles.Remove(profile);
+            if (_activeProfile?.Nickname == nickname)
+            {
+                _activeProfile = null;
+            }
         }
     }
 

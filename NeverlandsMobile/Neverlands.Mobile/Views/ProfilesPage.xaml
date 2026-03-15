@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Neverlands.Mobile.ViewModels"
+             xmlns:models="clr-namespace:Neverlands.Core.Models;assembly=Neverlands.Core"
              x:Class="Neverlands.Mobile.Views.ProfilesPage"
+             x:DataType="vm:ProfilesViewModel"
              Title="Character Profiles">
-    <VerticalStackLayout Padding="20">
-        <CollectionView ItemsSource="{Binding Profiles}">
+    <Grid RowDefinitions="*, Auto" Padding="20">
+        <CollectionView ItemsSource="{Binding Profiles}" Grid.Row="0">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding Nickname}" FontSize="Medium" Padding="10"/>
+                <DataTemplate x:DataType="models:UserProfile">
+                    <Frame Margin="0,5" Padding="15" HasShadow="True">
+                        <HorizontalStackLayout Spacing="15">
+                            <VerticalStackLayout VerticalOptions="Center" WidthRequest="150">
+                                <Label Text="{Binding Nickname}" FontSize="Large" FontAttributes="Bold"/>
+                                <Label Text="Active" IsVisible="{Binding AutoLogon}" TextColor="Green"/>
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                                <Button Text="Activate"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProfilesViewModel}}, Path=ActivateProfileCommand}"
+                                        CommandParameter="{Binding}"
+                                        Scale="0.8"/>
+                                <Button Text="Login"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProfilesViewModel}}, Path=LoginWithProfileCommand}"
+                                        CommandParameter="{Binding}"
+                                        Scale="0.8"/>
+                                <Button Text="Delete"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProfilesViewModel}}, Path=DeleteProfileCommand}"
+                                        CommandParameter="{Binding}"
+                                        BackgroundColor="Red"
+                                        Scale="0.8"/>
+                            </HorizontalStackLayout>
+                        </HorizontalStackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button Text="Add Profile" Command="{Binding AddProfileCommand}" Margin="0,20,0,0"/>
-    </VerticalStackLayout>
+
+        <Button Text="Add Profile"
+                Command="{Binding AddProfileCommand}"
+                Grid.Row="1"
+                Margin="0,10,0,0"/>
+    </Grid>
 </ContentPage>

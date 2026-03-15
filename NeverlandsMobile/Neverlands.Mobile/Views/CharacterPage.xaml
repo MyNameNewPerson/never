@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Neverlands.Mobile.ViewModels"
+             x:Class="Neverlands.Mobile.Views.CharacterPage"
+             x:DataType="vm:CharacterViewModel"
+             Title="Характеристики">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Frame BackgroundColor="{StaticResource Secondary}" Padding="20">
+                <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Label Text="{Binding Name}" FontSize="24" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+                    <Label Text="{Binding Level, StringFormat='Уровень {0}'}" FontSize="16" TextColor="White" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto" ColumnSpacing="10" RowSpacing="10">
+                <Frame Grid.Row="0" Grid.Column="0" Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="HP" FontSize="12" TextColor="Gray"/>
+                        <Label Text="{Binding HpStatus}" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Grid.Row="0" Grid.Column="1" Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="MP" FontSize="12" TextColor="Gray"/>
+                        <Label Text="{Binding MpStatus}" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Grid.Row="1" Grid.Column="0" Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="Атака" FontSize="12" TextColor="Gray"/>
+                        <Label Text="{Binding Attack}" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Grid.Row="1" Grid.Column="1" Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="Защита" FontSize="12" TextColor="Gray"/>
+                        <Label Text="{Binding Defense}" FontSize="18" FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Padding="10">
+                    <VerticalStackLayout>
+                        <Label Text="Золото" FontSize="12" TextColor="Gray"/>
+                        <Label Text="{Binding Gold, StringFormat='{0} монет'}" FontSize="18" FontAttributes="Bold" TextColor="Gold"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <Label Text="Снаряжение" FontSize="20" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <CollectionView ItemsSource="{Binding Equipment}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,2">
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="{Binding SlotName}" FontAttributes="Bold" WidthRequest="80"/>
+                                <Label Text="{Binding ItemName}" TextColor="Blue"/>
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Обновить" Command="{Binding RefreshCommand}" Margin="0,20,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

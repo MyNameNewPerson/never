@@ -2,21 +2,40 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Neverlands.Mobile.ViewModels"
+             xmlns:models="clr-namespace:Neverlands.Core.Models;assembly=Neverlands.Core"
              x:Class="Neverlands.Mobile.Views.MapPage"
+             x:DataType="vm:MapViewModel"
              Title="World Map">
-    <VerticalStackLayout Padding="20">
-        <Label Text="Current Location" FontSize="Small"/>
-        <Label Text="{Binding CurrentLocation}" FontSize="Large" FontAttributes="Bold"/>
+    <Grid RowDefinitions="Auto, *">
+        <VerticalStackLayout Grid.Row="0" Padding="10" BackgroundColor="{StaticResource Secondary}">
+            <Label Text="{Binding CurrentLocation, StringFormat='Вы находитесь: {0}'}"
+                   TextColor="White" HorizontalOptions="Center" FontAttributes="Bold"/>
+        </VerticalStackLayout>
 
-        <CollectionView ItemsSource="{Binding NearbyCells}" Margin="0,20,0,0">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="10">
-                        <Label Text="{Binding RegNum}" FontAttributes="Bold"/>
-                        <Label Text="{Binding Label}" Grid.Column="1"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+        <ScrollView Grid.Row="1" Orientation="Both">
+            <CollectionView ItemsSource="{Binding MapCells}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:GameCellViewModel">
+                        <Frame Padding="5" Margin="2" WidthRequest="60" HeightRequest="60"
+                               BorderColor="Black"
+                               BackgroundColor="{Binding BackgroundColor}">
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="{Binding RegNum}" FontSize="10" HorizontalOptions="Center" TextColor="Black"/>
+                                <Label Text="★" IsVisible="{Binding IsCurrent}" HorizontalOptions="Center" TextColor="Gold"/>
+                            </VerticalStackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MapViewModel}}, Path=CellSelectedCommand}"
+                                                      CommandParameter="{Binding}"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </Grid>
 </ContentPage>

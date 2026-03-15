@@ -312,4 +312,19 @@ public class NavigationService : INavigationService
         path.RemoveAt(0);
         return path;
     }
+
+    public IEnumerable<GameCell> GetNearbyCells(string cellId)
+    {
+        var result = new List<GameCell>();
+        if (_cells.TryGetValue(cellId, out var centerCell))
+        {
+            result.Add(centerCell);
+            foreach (var neighborId in GetNeighbors(cellId))
+            {
+                if (_cells.TryGetValue(neighborId, out var neighbor))
+                    result.Add(neighbor);
+            }
+        }
+        return result;
+    }
 }
