@@ -1,4 +1,18 @@
+## ⚠️ CURRENT STATE — READ THIS FIRST
 
+The previous implementation by Jules does NOT work. The app crashes on launch.
+
+Root cause: App.xaml.cs calls Shell.GoToAsync() inside an async void method
+that runs immediately after the constructor, before Shell has finished
+initializing its layout. This causes a null reference crash on startup.
+
+Do NOT keep the current App.xaml.cs logic. Replace it completely using
+the correct initialization pattern described in Section 2.2 of this document.
+
+Additionally:
+- AppShell.xaml likely has incorrect route definitions — verify and fix
+- Some ViewModels may have BindingContext set after InitializeComponent — fix all
+- The app must launch and show LoginPage before any other work is considered done
 
 JULES — МАСТЕР-ЗАДАНИЕ
 
