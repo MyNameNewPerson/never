@@ -3,28 +3,30 @@
 To build the Android APK, follow these steps:
 
 ## Prerequisites
-- .NET 8 SDK
+- .NET 8 SDK (or newer, but the project targets net8.0)
 - Android SDK and Build-Tools (version 34.0.0 is configured)
 - .NET MAUI Workloads
 
 ## Build Steps
 
+Run these commands from the solution root directory (`NeverlandsMobile/`):
+
 1. **Restore Workloads**
-   Open a terminal in the project root and run:
    ```bash
-   dotnet workload restore NeverlandsMobile/Neverlands.Mobile/Neverlands.Mobile.csproj
+   dotnet workload restore Neverlands.Mobile/Neverlands.Mobile.csproj
    ```
 
 2. **Generate APK**
-   Run the publish command targeting Android:
+   Run the publish command targeting Android. We use `<CheckEolTargetFramework>false</CheckEolTargetFramework>` in the project file to allow building with newer .NET SDKs (like .NET 9 or 10) even though net8.0 is in maintenance.
    ```bash
-   dotnet publish NeverlandsMobile/Neverlands.Mobile/Neverlands.Mobile.csproj -f net8.0-android -c Release
+   dotnet publish Neverlands.Mobile/Neverlands.Mobile.csproj -f net8.0-android -c Release
    ```
 
 3. **Locate APK**
    The generated APK will be available at:
-   `NeverlandsMobile/Neverlands.Mobile/bin/Release/net8.0-android/publish/com.neverlands.mobile-Signed.apk`
+   `Neverlands.Mobile/bin/Release/net8.0-android/publish/com.neverlands.mobile-Signed.apk`
 
 ## Troubleshooting
-- If you encounter "workload not installed" errors, ensure you are running the terminal as Administrator (on Windows) or with sufficient permissions.
-- Ensure the `AndroidSdkBuildToolsVersion` in `Neverlands.Mobile.csproj` matches your installed SDK version if 34.0.0 is not available.
+- **NU1015**: If you see errors about missing PackageReference versions, ensure `Microsoft.Maui.Controls` has an explicit version (e.g., `8.0.82`) in the `.csproj`.
+- **NETSDK1202**: If you see EOL (End of Life) errors, ensure `<CheckEolTargetFramework>false</CheckEolTargetFramework>` is present in the `<PropertyGroup>` of your `.csproj`.
+- **Workload errors**: If workloads fail to install, try running `dotnet workload install android maui` manually.
