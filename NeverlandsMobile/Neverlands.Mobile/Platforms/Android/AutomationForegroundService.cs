@@ -2,7 +2,9 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Neverlands.Core.Interfaces;
+
 namespace Neverlands.Mobile.Platforms.Android;
 [Service(Exported = false, ForegroundServiceType = global::Android.Content.PM.ForegroundService.TypeDataSync)]
 public class AutomationForegroundService : Service {
