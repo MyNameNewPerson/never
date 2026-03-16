@@ -12,11 +12,14 @@ public partial class AppShell : Shell
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        var initializer = Handler.MauiContext.Services
+        var initializer = Handler?.MauiContext?.Services
             .GetService<AppInitializer>();
-        await initializer.InitializeAsync();
-        var route = initializer.HasAutoLoginProfile()
-            ? "///main" : "//login";
-        await Shell.Current.GoToAsync(route);
+        if (initializer != null)
+        {
+            await initializer.InitializeAsync();
+            var route = initializer.HasAutoLoginProfile()
+                ? "///main" : "//login";
+            await Shell.Current.GoToAsync(route);
+        }
     }
 }
