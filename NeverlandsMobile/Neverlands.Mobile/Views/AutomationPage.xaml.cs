@@ -6,7 +6,7 @@ public partial class AutomationPage : ContentPage
 {
 	public AutomationPage(AutomationViewModel viewModel)
 	{
-		InitializeComponent();
 		BindingContext = viewModel;
+		InitializeComponent();
 	}
 }

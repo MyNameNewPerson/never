@@ -1,7 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Neverlands.Core.Interfaces;
-using System.Collections.ObjectModel;
 
 namespace Neverlands.Mobile.ViewModels;
 
@@ -15,14 +14,21 @@ public partial class CharacterViewModel : ObservableObject
     [ObservableProperty] private int _maxHp = 100;
     [ObservableProperty] private int _currentMp = 50;
     [ObservableProperty] private int _maxMp = 50;
+    [ObservableProperty] private long _currentExp = 0;
+    [ObservableProperty] private long _maxExp = 1000;
     [ObservableProperty] private int _attack = 10;
     [ObservableProperty] private int _defense = 10;
+    [ObservableProperty] private int _speed = 10;
+    [ObservableProperty] private int _luck = 10;
     [ObservableProperty] private int _gold = 0;
 
-    public string HpStatus => $"{CurrentHp}/{MaxHp}";
-    public string MpStatus => $"{CurrentMp}/{MaxMp}";
+    public double HpPercent => MaxHp > 0 ? (double)CurrentHp / MaxHp : 0;
+    public double MpPercent => MaxMp > 0 ? (double)CurrentMp / MaxMp : 0;
+    public double ExpPercent => MaxExp > 0 ? (double)CurrentExp / MaxExp : 0;
 
-    public ObservableCollection<EquipmentSlot> Equipment { get; } = new();
+    public string HpStatus => $"{CurrentHp} / {MaxHp}";
+    public string MpStatus => $"{CurrentMp} / {MaxMp}";
+    public string ExpStatus => $"{CurrentExp} / {MaxExp}";
 
     public CharacterViewModel(IProfileManager profileManager)
     {
@@ -37,24 +43,13 @@ public partial class CharacterViewModel : ObservableObject
         {
             Name = profile.Nickname;
         }
-
-        // Mock data for initial implementation
-        Equipment.Clear();
-        Equipment.Add(new EquipmentSlot { SlotName = "Голова", ItemName = "Кожаный шлем" });
-        Equipment.Add(new EquipmentSlot { SlotName = "Тело", ItemName = "Кожаная броня" });
-        Equipment.Add(new EquipmentSlot { SlotName = "Оружие", ItemName = "Меч новичка" });
     }
 
     [RelayCommand]
-    private async Task RefreshAsync()
+    private async Task Refresh()
     {
+        // Actual data fetch logic would be implemented here
         await Task.Delay(500);
         LoadCharacterData();
     }
-}
-
-public class EquipmentSlot
-{
-    public string SlotName { get; set; } = string.Empty;
-    public string ItemName { get; set; } = string.Empty;
 }

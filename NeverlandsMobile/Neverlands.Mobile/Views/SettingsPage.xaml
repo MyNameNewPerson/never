@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Neverlands.Mobile.ViewModels"
              x:Class="Neverlands.Mobile.Views.SettingsPage"
-             Title="Settings">
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <HorizontalStackLayout Spacing="10">
-            <CheckBox IsChecked="{Binding AutoWoodcutting}" />
-            <Label Text="Auto Woodcutting" VerticalOptions="Center"/>
-        </HorizontalStackLayout>
+             x:DataType="vm:SettingsViewModel"
+             Title="Настройки">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
 
-        <HorizontalStackLayout Spacing="10">
-            <CheckBox IsChecked="{Binding AutoCombat}" />
-            <Label Text="Auto Combat" VerticalOptions="Center"/>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+            <Label Text="AntiCaptcha API ключ" />
+            <Entry Text="{Binding AntiCaptchaKey}" Placeholder="Введите ключ..." />
+
+            <Label Text="Задержка между действиями (мс)" />
+            <Entry Text="{Binding ActionDelay}" Keyboard="Numeric" />
+
+            <HorizontalStackLayout Spacing="10">
+                <Switch IsToggled="{Binding IsLoggingEnabled}" />
+                <Label Text="Включить подробный лог" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Label Text="User-Agent для HTTP запросов" />
+            <Entry Text="{Binding UserAgent}" Placeholder="Mozilla/5.0..." />
+
+            <Grid ColumnDefinitions="*, *" Spacing="10" Margin="0,20,0,0">
+                <Button Grid.Column="0" Text="Сохранить" Command="{Binding SaveCommand}" />
+                <Button Grid.Column="1" Text="Сброс" Command="{Binding ResetCommand}" TextColor="Red" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

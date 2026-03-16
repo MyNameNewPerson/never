@@ -1,58 +1,89 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Neverlands.Core.Interfaces;
-using Neverlands.Core.Models;
 using System.Collections.ObjectModel;
+using System.Xml.Linq;
 
 namespace Neverlands.Mobile.ViewModels;
 
-public partial class GameCellViewModel : ObservableObject
+public partial class MapCellViewModel : ObservableObject
 {
-    public GameCell Cell { get; }
-    public bool IsCurrent { get; }
-    public string RegNum => Cell.RegNum;
-    public string Label => Cell.Label;
-    public string BackgroundColor => Cell.IsMine ? "#704214" : (Cell.HasWater ? "#0077BE" : "#4CAF50");
-
-    public GameCellViewModel(GameCell cell, bool isCurrent)
-    {
-        Cell = cell;
-        IsCurrent = isCurrent;
-    }
+    public string Id { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public int Row { get; set; }
+    public int Column { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public Color CellColor { get; set; } = Colors.Gray;
 }
 
 public partial class MapViewModel : ObservableObject
 {
-    private readonly INavigationService _navigationService;
-    [ObservableProperty] private string _currentLocation = "18-226";
-    public ObservableCollection<GameCellViewModel> MapCells { get; } = new();
+    [ObservableProperty] private ObservableCollection<MapCellViewModel> _cells = new();
+    [ObservableProperty] private MapCellViewModel? _selectedCell;
+    [ObservableProperty] private bool _hasSelectedCell;
 
-    public MapViewModel(INavigationService navigationService)
+    public string SelectedCellName => SelectedCell?.Name ?? string.Empty;
+
+    public MapViewModel()
     {
-        _navigationService = navigationService;
-        LoadMap();
+        _ = LoadMapData();
     }
 
-    private void LoadMap()
+    private async Task LoadMapData()
     {
-        // For simulation, we load nearby cells from navigation service
-        // In a real implementation, this would dynamically build the grid based on character X/Y
-        var cells = _navigationService.GetNearbyCells(CurrentLocation);
-        MapCells.Clear();
-        foreach (var cell in cells)
+        try
         {
-            MapCells.Add(new GameCellViewModel(cell, cell.RegNum == CurrentLocation));
+            using var stream = await FileSystem.OpenAppPackageFileAsync("map.xml");
+            var doc = XDocument.Load(stream);
+            var cellsList = new List<MapCellViewModel>();
+
+            // Assuming map.xml structure: <map><cell id="..." name="..." x="..." y="..." type="..." /></map>
+            foreach (var element in doc.Descendants("cell"))
+            {
+                var cell = new MapCellViewModel
+                {
+                    Id = element.Attribute("id")?.Value ?? string.Empty,
+                    Name = element.Attribute("name")?.Value ?? string.Empty,
+                    Column = int.TryParse(element.Attribute("x")?.Value, out int x) ? x : 0,
+                    Row = int.TryParse(element.Attribute("y")?.Value, out int y) ? y : 0,
+                    Type = element.Attribute("type")?.Value ?? string.Empty
+                };
+
+                cell.CellColor = cell.Type.ToLower() switch
+                {
+                    "city" => Colors.Gold,
+                    "forest" => Colors.ForestGreen,
+                    "mine" => Colors.Brown,
+                    "teleport" => Colors.Purple,
+                    "water" => Colors.Blue,
+                    _ => Colors.Gray
+                };
+
+                cellsList.Add(cell);
+            }
+
+            Cells = new ObservableCollection<MapCellViewModel>(cellsList);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to load map: {ex.Message}");
         }
     }
 
     [RelayCommand]
-    private async Task CellSelected(GameCellViewModel cellVm)
+    private void SelectCell(MapCellViewModel cell)
     {
-        bool answer = await Shell.Current.DisplayAlert("Перемещение", $"Перейти в локацию {cellVm.Label} ({cellVm.RegNum})?", "Да", "Нет");
-        if (answer)
-        {
-            CurrentLocation = cellVm.RegNum;
-            LoadMap();
-        }
+        SelectedCell = cell;
+        HasSelectedCell = cell != null;
+    }
+
+    [RelayCommand]
+    private async Task GoToCell()
+    {
+        if (SelectedCell == null) return;
+        // Logic to send move command via NavigationService would go here
+        await Shell.Current.DisplayAlert("Навигация", $"Вы идете в {SelectedCell.Name}", "OK");
+        HasSelectedCell = false;
+        SelectedCell = null;
     }
 }

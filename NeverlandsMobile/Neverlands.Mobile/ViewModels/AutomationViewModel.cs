@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Neverlands.Core.Interfaces;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace Neverlands.Mobile.ViewModels;
 
@@ -10,12 +11,14 @@ public partial class AutomationViewModel : ObservableObject
     private readonly IBackgroundAutomationManager _automationManager;
     private readonly IScriptManager _scriptManager;
 
-    [ObservableProperty] private bool _isAutomationEnabled;
+    [ObservableProperty] private bool _isAutomationRunning;
+    [ObservableProperty] private bool _isResourceFarmingEnabled;
     [ObservableProperty] private bool _isAutoCombatEnabled;
-    [ObservableProperty] private bool _isResourceGatheringEnabled;
-    [ObservableProperty] private string _currentTaskStatus = "Ожидание...";
+    [ObservableProperty] private string _currentTaskDescription = "Нет активных задач";
+    [ObservableProperty] private string _automationLog = string.Empty;
+    [ObservableProperty] private ObservableCollection<GameScript> _scripts = new();
 
-    public ObservableCollection<GameScript> Scripts { get; } = new();
+    private StringBuilder _logBuilder = new StringBuilder();
 
     public AutomationViewModel(IBackgroundAutomationManager automationManager, IScriptManager scriptManager)
     {
@@ -26,35 +29,42 @@ public partial class AutomationViewModel : ObservableObject
 
     private void LoadScripts()
     {
-        Scripts.Clear();
-        Scripts.Add(new GameScript { Name = "Авто-лекарь" });
-        Scripts.Add(new GameScript { Name = "Маршрут в город" });
-        Scripts.Add(new GameScript { Name = "Проверка почты" });
+        Scripts = new ObservableCollection<GameScript>(_scriptManager.GetAllScripts());
+    }
+
+    private void AddLog(string message)
+    {
+        _logBuilder.Insert(0, $"[{DateTime.Now:HH:mm:ss}] {message}\n");
+        AutomationLog = _logBuilder.ToString();
     }
 
     [RelayCommand]
-    private async Task RunScriptAsync(GameScript script)
+    private async Task RunScript(GameScript script)
     {
-        CurrentTaskStatus = $"Запущен скрипт: {script.Name}";
-        await Task.Delay(2000);
-        CurrentTaskStatus = "Скрипт выполнен успешно";
+        if (script == null) return;
+        CurrentTaskDescription = $"Выполнение: {script.Name}";
+        AddLog($"Запущен скрипт {script.Name}");
+        await Task.Delay(1000); // Simulation
     }
 
-    partial void OnIsAutomationEnabledChanged(bool value)
+    [RelayCommand]
+    private void StopScript()
     {
-        CurrentTaskStatus = value ? "Автоматизация активирована" : "Автоматизация остановлена";
+        CurrentTaskDescription = "Все задачи остановлены";
+        AddLog("Остановка всех скриптов");
+    }
+
+    partial void OnIsAutomationRunningChanged(bool value)
+    {
         if (value)
         {
             _automationManager.Start();
+            AddLog("Фоновая служба запущена");
         }
         else
         {
             _automationManager.Stop();
+            AddLog("Фоновая служба остановлена");
         }
     }
-}
-
-public class GameScript
-{
-    public string Name { get; set; } = string.Empty;
 }

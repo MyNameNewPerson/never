@@ -3,18 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Neverlands.Mobile.ViewModels"
              x:Class="Neverlands.Mobile.Views.LoginPage"
-             x:DataType="vm:LoginViewModel">
+             x:DataType="vm:LoginViewModel"
+             Title="Вход">
     <ScrollView>
         <VerticalStackLayout Padding="32" Spacing="16">
-            <Label Text="Neverlands" FontSize="32" HorizontalOptions="Center" />
+            <Label Text="Neverlands"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-            <Picker ItemsSource="{Binding Profiles}"
+            <Picker Title="Выберите профиль"
+                    ItemsSource="{Binding Profiles}"
                     SelectedItem="{Binding SelectedProfile}"
-                    Title="Выберите профиль"
                     ItemDisplayBinding="{Binding Nickname}"/>
 
-            <Entry Text="{Binding Login}" Placeholder="Логин" />
-            <Entry Text="{Binding Password}" IsPassword="True" Placeholder="Пароль" />
+            <Entry Text="{Binding Login}"
+                   Placeholder="Логин" />
+
+            <Entry Text="{Binding Password}"
+                   IsPassword="True"
+                   Placeholder="Пароль" />
 
             <HorizontalStackLayout Spacing="10">
                 <CheckBox IsChecked="{Binding RememberPassword}" />
@@ -26,11 +34,25 @@
                 <Label Text="Автовход" VerticalOptions="Center" />
             </HorizontalStackLayout>
 
-            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
+            <Button Text="Войти"
+                    Command="{Binding LoginCommand}"
+                    IsEnabled="{Binding IsNotLoading}" />
 
-            <Button Text="Войти" Command="{Binding LoginCommand}" />
+            <Button Text="Новый профиль"
+                    Command="{Binding AddProfileCommand}" />
 
-            <Label Text="{Binding ErrorMessage}" TextColor="Red" HorizontalOptions="Center" />
+            <Button Text="Удалить"
+                    Command="{Binding DeleteProfileCommand}"
+                    TextColor="Red" />
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               HorizontalOptions="Center" />
+
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
