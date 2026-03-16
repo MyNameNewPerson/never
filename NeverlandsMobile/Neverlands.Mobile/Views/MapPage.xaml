@@ -2,40 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Neverlands.Mobile.ViewModels"
-             xmlns:models="clr-namespace:Neverlands.Core.Models;assembly=Neverlands.Core"
              x:Class="Neverlands.Mobile.Views.MapPage"
              x:DataType="vm:MapViewModel"
-             Title="World Map">
-    <Grid RowDefinitions="Auto, *">
-        <VerticalStackLayout Grid.Row="0" Padding="10" BackgroundColor="{StaticResource Secondary}">
-            <Label Text="{Binding CurrentLocation, StringFormat='Вы находитесь: {0}'}"
-                   TextColor="White" HorizontalOptions="Center" FontAttributes="Bold"/>
-        </VerticalStackLayout>
-
-        <ScrollView Grid.Row="1" Orientation="Both">
-            <CollectionView ItemsSource="{Binding MapCells}"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="5" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="vm:GameCellViewModel">
-                        <Frame Padding="5" Margin="2" WidthRequest="60" HeightRequest="60"
-                               BorderColor="Black"
-                               BackgroundColor="{Binding BackgroundColor}">
-                            <VerticalStackLayout VerticalOptions="Center">
-                                <Label Text="{Binding RegNum}" FontSize="10" HorizontalOptions="Center" TextColor="Black"/>
-                                <Label Text="★" IsVisible="{Binding IsCurrent}" HorizontalOptions="Center" TextColor="Gold"/>
-                            </VerticalStackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MapViewModel}}, Path=CellSelectedCommand}"
-                                                      CommandParameter="{Binding}"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
+             Title="Карта">
+    <Grid RowDefinitions="*, Auto" Padding="10">
+        <ScrollView Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center">
+            <Grid x:Name="MapGrid"
+                  RowSpacing="1"
+                  ColumnSpacing="1"
+                  BindableLayout.ItemsSource="{Binding Cells}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:MapCellViewModel">
+                        <Button Text="{Binding Name}"
+                                Grid.Row="{Binding Row}"
+                                Grid.Column="{Binding Column}"
+                                BackgroundColor="{Binding CellColor}"
+                                FontSize="8"
+                                Padding="1"
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MapViewModel}}, Path=SelectCellCommand}"
+                                CommandParameter="{Binding .}" />
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </BindableLayout.ItemTemplate>
+            </Grid>
         </ScrollView>
+
+        <VerticalStackLayout Grid.Row="1" Padding="10" Spacing="5" IsVisible="{Binding HasSelectedCell}">
+            <Label Text="{Binding SelectedCellName}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Button Text="Перейти" Command="{Binding GoToCellCommand}" />
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

@@ -65,4 +65,14 @@ public class ScriptManager : IScriptManager
     {
         return "Script engine ready";
     }
+
+    public IEnumerable<GameScript> GetAllScripts()
+    {
+        return new List<GameScript>
+        {
+            new GameScript { Name = "Авто-лекарь" },
+            new GameScript { Name = "Маршрут в город" },
+            new GameScript { Name = "Проверка почты" }
+        };
+    }
 }

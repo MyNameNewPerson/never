@@ -1,39 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="Neverlands.Mobile.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:Neverlands.Mobile.Views"
-    Shell.FlyoutBehavior="Flyout">
-
-    <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate views:LoginPage}"
-        Route="LoginPage"
-        FlyoutItemIsVisible="False" />
-
-    <FlyoutItem Title="Dashboard" Icon="home.png">
-        <ShellContent ContentTemplate="{DataTemplate views:MainPage}" Route="MainPage" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Map" Icon="map.png">
-        <ShellContent ContentTemplate="{DataTemplate views:MapPage}" Route="MapPage" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Profiles" Icon="people.png">
-        <ShellContent ContentTemplate="{DataTemplate views:ProfilesPage}" Route="ProfilesPage" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Character" Icon="people.png">
-        <ShellContent ContentTemplate="{DataTemplate views:CharacterPage}" Route="CharacterPage" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Automation" Icon="settings.png">
-        <ShellContent ContentTemplate="{DataTemplate views:AutomationPage}" Route="AutomationPage" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Settings" Icon="settings.png">
-        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
-    </FlyoutItem>
-
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:Neverlands.Mobile.Views"
+       x:Class="Neverlands.Mobile.AppShell">
+  <Shell.Items>
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}" Shell.NavBarIsVisible="False" />
+    <ShellContent Route="main"  ContentTemplate="{DataTemplate views:MainPage}" Shell.NavBarIsVisible="False" />
+    <ShellContent Route="map"   ContentTemplate="{DataTemplate views:MapPage}" />
+    <ShellContent Route="profiles" ContentTemplate="{DataTemplate views:ProfilesPage}" />
+    <ShellContent Route="character" ContentTemplate="{DataTemplate views:CharacterPage}" />
+    <ShellContent Route="automation" ContentTemplate="{DataTemplate views:AutomationPage}" />
+    <ShellContent Route="settings" ContentTemplate="{DataTemplate views:SettingsPage}" />
+  </Shell.Items>
 </Shell>

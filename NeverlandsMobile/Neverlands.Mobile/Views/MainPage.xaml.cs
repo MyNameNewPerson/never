@@ -2,9 +2,9 @@ using Neverlands.Mobile.ViewModels;
 
 namespace Neverlands.Mobile.Views;
 
-public partial class SettingsPage : ContentPage
+public partial class MainPage : ContentPage
 {
-	public SettingsPage(SettingsViewModel viewModel)
+	public MainPage(MainViewModel viewModel)
 	{
 		BindingContext = viewModel;
 		InitializeComponent();

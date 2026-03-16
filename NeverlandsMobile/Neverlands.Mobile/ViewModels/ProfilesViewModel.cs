@@ -9,56 +9,50 @@ namespace Neverlands.Mobile.ViewModels;
 public partial class ProfilesViewModel : ObservableObject
 {
     private readonly IProfileManager _profileManager;
-    public ObservableCollection<UserProfile> Profiles { get; } = new();
+    [ObservableProperty] private ObservableCollection<UserProfile> _profiles = new();
 
     public ProfilesViewModel(IProfileManager profileManager)
     {
         _profileManager = profileManager;
-        LoadProfiles();
     }
 
-    private async void LoadProfiles()
+    // Use OnAppearing in view to call this if needed, or constructor
+    public void LoadProfiles()
     {
-        await _profileManager.LoadProfilesAsync();
         RefreshProfiles();
     }
 
     private void RefreshProfiles()
     {
-        Profiles.Clear();
-        foreach (var profile in _profileManager.GetAllProfiles())
+        var activeProfile = _profileManager.GetActiveProfile();
+        var allProfiles = _profileManager.GetAllProfiles().ToList();
+        foreach (var p in allProfiles)
         {
-            Profiles.Add(profile);
+            p.IsActive = (activeProfile != null && p.Nickname == activeProfile.Nickname);
         }
+        Profiles = new ObservableCollection<UserProfile>(allProfiles);
     }
 
     [RelayCommand]
-    private async Task AddProfileAsync()
+    private async Task Add()
     {
-        await Shell.Current.GoToAsync("//LoginPage");
+        await Shell.Current.GoToAsync("//login");
     }
 
     [RelayCommand]
-    private async Task ActivateProfileAsync(UserProfile profile)
+    private async Task Login(UserProfile profile)
     {
-        foreach (var p in _profileManager.GetAllProfiles())
-        {
-            p.AutoLogon = (p.Nickname == profile.Nickname);
-        }
-        await _profileManager.SaveProfilesAsync();
-        RefreshProfiles();
-    }
-
-    [RelayCommand]
-    private async Task LoginWithProfileAsync(UserProfile profile)
-    {
+        if (profile == null) return;
+        profile.LastLogin = DateTime.Now;
         _profileManager.SwitchProfile(profile.Nickname);
-        await Shell.Current.GoToAsync("///MainPage");
+        await _profileManager.SaveProfilesAsync();
+        await Shell.Current.GoToAsync("///main");
     }
 
     [RelayCommand]
-    private async Task DeleteProfileAsync(UserProfile profile)
+    private async Task Delete(UserProfile profile)
     {
+        if (profile == null) return;
         bool answer = await Shell.Current.DisplayAlert("Удаление", $"Вы уверены, что хотите удалить профиль {profile.Nickname}?", "Да", "Нет");
         if (answer)
         {

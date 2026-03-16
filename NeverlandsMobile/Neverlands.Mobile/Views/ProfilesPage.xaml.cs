@@ -1,10 +1,18 @@
+using Neverlands.Mobile.ViewModels;
+
 namespace Neverlands.Mobile.Views;
 
 public partial class ProfilesPage : ContentPage
 {
-	public ProfilesPage(ViewModels.ProfilesViewModel viewModel)
+	public ProfilesPage(ProfilesViewModel viewModel)
 	{
+		BindingContext = viewModel;
 		InitializeComponent();
-        BindingContext = viewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        (BindingContext as ProfilesViewModel)?.LoadProfiles();
+    }
 }
